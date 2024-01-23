@@ -27,7 +27,7 @@
     <div class="filters">
       <div>
         <label>Status:</label>
-        <select v-model="statusFilter" @change="applyFilters">
+        <select v-model="statusFilter">
           <option value="all">All</option>
           <option value="completed">Completed</option>
           <option value="uncompleted">Uncompleted</option>
@@ -36,14 +36,14 @@
       </div>
       <div>
         <label>User ID:</label>
-        <select v-model="userIdFilter" @change="applyFilters">
+        <select v-model="userIdFilter">
           <option value="all">All Users</option>
           <option v-for="user in state.users" :key="user.id" :value="user.id">{{ user.id }}</option>
         </select>
       </div>
       <div>
         <label>Search:</label>
-        <input type="text" v-model="searchQuery" @input="applyFilters" />
+        <input type="text" v-model="searchQuery" />
       </div>
       <div>
         <button @click="showModal = true">Add Todo</button>
@@ -86,7 +86,7 @@ import CardTodo from "@/components/cardTodo.vue";
 import Modal from "@/components/modal.vue";
 
 const state = useTodo();
-const user = state.currentUser;
+const user: user = state.currentUser;
 const showModal = ref(false);
 const addTodoTitle = ref('');
 const addTodoUserId = ref(0);
@@ -96,7 +96,7 @@ const userIdFilter = ref('all');
 const searchQuery = ref('');
 
 const task = computed(() => {
-  return state.todo.filter((todo) => {
+  return state.todo.filter((todo: todo) => {
     // Fix the logic for favorites
     const statusCondition =
         statusFilter.value === "all" ||
