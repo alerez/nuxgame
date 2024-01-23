@@ -80,7 +80,8 @@ export const useTodo = defineStore('todo', {
     },
     getters: {
         getUserById: (state) => (id: number) => {
-            return state.users.find((user: user) => user.id === id).name
+            const user = state.users.find((user: user) => user.id === id)
+            return user ? user.name : ''
         },
         getTodoByUserId: (state) => (id: number) => {
             return state.todo.filter((todo: todo) => todo.userId === id)
