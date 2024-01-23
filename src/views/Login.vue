@@ -10,8 +10,8 @@ import BaseButton from "@/components/Button/BaseButton.vue";
 
 const state  = useTodo()
 const router = useRouter()
-const username = ref('Bret')
-const phone = ref('1-770-736-8031 x56442')
+const username = ref('')
+const phone = ref('')
 
 async function getLoggedInUser(user: any){
   await state.getLoggedInUser({username: username.value, phone: phone.value})
