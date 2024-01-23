@@ -105,7 +105,7 @@ const task = computed(() => {
         (statusFilter.value === "favorites" && todo.saved);
 
     // Fix the userIdCondition comparison
-    const userIdCondition = userIdFilter.value === "all" || todo.userId === userIdFilter.value;
+    const userIdCondition = userIdFilter.value === "all" || todo.userId === Number(userIdFilter.value);
     const searchCondition = todo.title.toLowerCase().includes(searchQuery.value.toLowerCase());
 
     return statusCondition && userIdCondition && searchCondition;

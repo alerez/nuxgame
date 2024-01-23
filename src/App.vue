@@ -5,6 +5,7 @@ import {onMounted} from "vue";
 const state = useTodo()
 onMounted(async () => {
   await state.getTodo();
+  // @ts-ignore
   state.savedTodo = JSON.parse(localStorage.getItem('savedTodo')) || [];
 });
 </script>
