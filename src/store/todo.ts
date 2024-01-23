@@ -5,10 +5,19 @@ import axios from 'axios';
 export const useTodo = defineStore('todo', {
     state: () => ({
         isLoggedIn: ref(false),
-        users: ref([]),
-        currentUser: ref({}),
-        todo: ref([]),
-        savedTodo: ref([])
+        users: ref<user[]>([]),
+        currentUser: ref<user>({
+            address: {city: "", geo: {lat: 0, lng: 0}, street: "", suite: "", zipcode: ""},
+            company: {bs: "", catchPhrase: "", name: ""},
+            email: "",
+            id: 0,
+            name: "",
+            phone: "",
+            username: "",
+            website: ""
+        }),
+        todo: ref<todo[]>([]),
+        savedTodo: ref<number[]>([])
     }),
     actions: {
         async getUsers() {
@@ -29,7 +38,16 @@ export const useTodo = defineStore('todo', {
         },
         async logout() {
             this.isLoggedIn = false
-            this.currentUser = {}
+            this.currentUser = {
+                address: {city: "", geo: {lat: 0, lng: 0}, street: "", suite: "", zipcode: ""},
+                company: {bs: "", catchPhrase: "", name: ""},
+                email: "",
+                id: 0,
+                name: "",
+                phone: "",
+                username: "",
+                website: ""
+            }
         },
         async getTodo() {
             await axios.get('https://jsonplaceholder.typicode.com/todos')
@@ -57,15 +75,15 @@ export const useTodo = defineStore('todo', {
             await this.todoSaveMap()
         },
         async todoSaveMap() {
-            this.todo.map((todo: any) => { todo.saved = this.savedTodo.includes(todo.id) })
+            this.todo.map((todo: todo) => { todo.saved = this.savedTodo.includes(todo.id) })
         }
     },
     getters: {
         getUserById: (state) => (id: number) => {
-            return state.users.find((user: any) => user.id === id).name
+            return state.users.find((user: user) => user.id === id).name
         },
         getTodoByUserId: (state) => (id: number) => {
-            return state.todo.filter((todo: any) => todo.userId === id)
+            return state.todo.filter((todo: todo) => todo.userId === id)
         }
     }
 })
